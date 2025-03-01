@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Emoji Cursor Effect</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f4f4f4;
+        }
+
+        .food-emoji {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall 1s linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    document.addEventListener("mousemove", (event) => {
+        for (let i = 0; i < 3; i++) { // Adjust number of emojis per move
+            createFoodEmoji(event.clientX, event.clientY);
+        }
+    });
+
+    function createFoodEmoji(x, y) {
+        const emojiList = ["🍕", "🍔", "🍣", "🍩", "🍉", "🍪", "🥑", "🍟", "🍎", "🌮"];
+        const foodEmoji = document.createElement("div");
+        foodEmoji.classList.add("food-emoji");
+        foodEmoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+
+        foodEmoji.style.left = `${x}px`;
+        foodEmoji.style.top = `${y}px`;
+
+        const randomX = (Math.random() - 0.5) * 100; // Random horizontal movement
+        const randomY = Math.random() * 100 + 50; // Random fall distance
+        foodEmoji.style.setProperty("--x", `${randomX}px`);
+        foodEmoji.style.setProperty("--y", `${randomY}px`);
+
+        document.body.appendChild(foodEmoji);
+
+        setTimeout(() => {
+            foodEmoji.remove(); // Remove emoji after animation
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
+
+
+</body>
+</html>
