@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favourite Recipes</title>
     <link rel="stylesheet" href="fav_styles.css">
+    <script src="../cursor.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -22,26 +23,7 @@
         }
     });
 
-    function createFoodEmoji(x, y) {
-        const emojiList = ["🍕", "🍔", "🍣", "🍩", "🍉", "🍪", "🥑", "🍟", "🍎", "🌮"];
-        const foodEmoji = document.createElement("div");
-        foodEmoji.classList.add("food-emoji");
-        foodEmoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
 
-        foodEmoji.style.left = `${x}px`;
-        foodEmoji.style.top = `${y}px`;
-
-        const randomX = (Math.random() - 0.5) * 100; // Random horizontal movement
-        const randomY = Math.random() * 100 + 50; // Random fall distance
-        foodEmoji.style.setProperty("--x", `${randomX}px`);
-        foodEmoji.style.setProperty("--y", `${randomY}px`);
-
-        document.body.appendChild(foodEmoji);
-
-        setTimeout(() => {
-            foodEmoji.remove(); // Remove emoji after animation
-        }, 1000);
-    }
         document.addEventListener("DOMContentLoaded", function () {
             const favouritesContainer = document.getElementById("favouritesContainer");
             const savedRecipes = JSON.parse(localStorage.getItem("favourites")) || [
