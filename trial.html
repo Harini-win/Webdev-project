@@ -65,6 +65,12 @@
     </main>
 
     <script>
+        
+        document.addEventListener("mousemove", (event) => {
+        for (let i = 0; i < 3; i++) { // Adjust number of emojis per move
+            createFoodEmoji(event.clientX, event.clientY);
+        }
+    });
         const API_KEY = '9030cdcbe64241eea03d82bb20c19fc7';
         const searchInput = document.getElementById('searchInput');
         const searchButton = document.getElementById('searchButton');
