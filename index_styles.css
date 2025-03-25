@@ -1,0 +1,108 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
+        body {
+            background-image: url('BG.png'); /* Ensure correct path */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content towards the top */
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .container {
+            position: absolute;
+            top: 6%; /* Moved slightly down */
+            text-align: center;
+            width: 100%;
+        }
+        @font-face {
+        font-family: 'MyFont';
+        src: url("fonts/CuteEasterPersonalUse-Wy8nV.ttf") format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        }
+        h1 {
+            font-size: 90px; /* Large text */
+            font-family: 'MyFont'; /* Stylish slanted cursive font */
+            font-weight: bold;
+            color: white; /* White text */
+            text-shadow: 
+                -8px -8px 0 black,  
+                 2px -2px 0 black,  
+                -2px  2px 0 black,  
+                 2px  2px 0 black; /* Black outline effect */
+            transform: skew(-10deg); /* Adds slanting effect */
+            margin-top: 0; /* Prevents unwanted spacing */
+        }
+        .food-emoji {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall 1s linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+        .link1 {
+            position: absolute;
+            top: 515px;
+            left: 530px;
+            width: 220px;
+            height: 290px;
+        }
+        .link2 {
+            position: absolute;
+            top: 515px;
+            left: 780px;
+            width: 220px;
+            height: 290px;
+        }
+        .link3 {
+            position: absolute;
+            top: 15px;
+            left: 1255px;
+            width: 100px;
+            height: 35px;
+        }
+        .link4 {
+            position: absolute;
+            top: 15px;
+            left: 1360px;
+            width: 100px;
+            height: 35px;
+        }
+        .link5 {
+            position: absolute;
+            top: 3px;
+            left: 10px;
+            width: 40px;
+            height: 35px;
+        }
+        .link6 {
+            position: absolute;
+            top: 210px;
+            left: 490px;
+            width: 530px;
+            height: 70px;
+        }
+        .link7 {
+            position: absolute;
+            top: 310px;
+            left: 490px;
+            width: 530px;
+            height: 70px;
+        }
+
