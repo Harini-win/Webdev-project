@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavourRhythm - Login/Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-400 to-red-500">
+    <div class="w-96 p-6 shadow-xl bg-white rounded-2xl">
+        <h2 class="text-center text-2xl font-bold" id="formTitle">Login to FlavourRhythm</h2>
+        <div id="message" class="mt-2 text-center hidden"></div>
+        <form class="flex flex-col gap-4 mt-4" id="authForm">
+            <input type="email" id="email" placeholder="Email" class="p-3 border rounded-lg" required>
+            <input type="password" id="password" placeholder="Password" class="p-3 border rounded-lg" required>
+            <input type="password" id="reenterPassword" placeholder="Re-enter Password" class="p-3 border rounded-lg hidden">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-3 rounded-lg w-full">Login</button>
+        </form>
+        <p class="text-center mt-4">
+            <span id="toggleText">Don't have an account?</span> 
+            <span class="text-red-500 cursor-pointer font-semibold" onclick="toggleForm()">Sign Up</span>
+        </p>
+    </div>
+
+    <script>
+        let isLoginForm = true;
+        const API_URL = 'http://localhost:3000/api';
+
+        function toggleForm() {
+            const formTitle = document.getElementById('formTitle');
+            const reenterPassword = document.getElementById('reenterPassword');
+            const button = document.querySelector("form button");
+            const toggleText = document.getElementById('toggleText');
+            const message = document.getElementById('message');
+
+            document.getElementById('authForm').reset();
+            message.classList.add('hidden');
+
+            if (isLoginForm) {
+                formTitle.innerText = 'Sign Up for FlavourRhythm';
+                reenterPassword.classList.remove("hidden");
+                button.innerText = "Sign in";
+                toggleText.innerText = "Already have an account?";
+            } else {
+                formTitle.innerText = 'Login to FlavourRhythm';
+                reenterPassword.classList.add("hidden");
+                button.innerText = "Login";
+                toggleText.innerText = "Don't have an account?";
+            }
+            isLoginForm = !isLoginForm;
+        }
+
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            message.textContent = '';
+            message.className = 'mt-2 text-center';
+
+            if (!isLoginForm) {
+                const reenterPassword = document.getElementById('reenterPassword').value;
+                if (password !== reenterPassword) {
+                    message.textContent = 'Passwords do not match';
+                    message.classList.add('text-red-500');
+                    message.classList.remove('hidden');
+                    return;
+                }
+
+                const response = await fetch(`${API_URL}/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    message.textContent = 'Account created successfully! You can now login.';
+                    message.classList.add('text-green-500');
+                    message.classList.remove('hidden');
+                    setTimeout(() => { if (!isLoginForm) toggleForm(); }, 2000);
+                } else {
+                    message.textContent = data.message || 'Error creating account';
+                    message.classList.add('text-red-500');
+                    message.classList.remove('hidden');
+                }
+            } else {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('userId', data.userId);
+                    window.location.href = 'trial.html';
+                     // Redirect to trial.html after login
+                } else {
+                    message.textContent = data.message || 'Invalid credentials';
+                    message.classList.add('text-red-500');
+                    message.classList.remove('hidden');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
