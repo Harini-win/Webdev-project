@@ -112,6 +112,18 @@ app.get('/display.html', (req, res) => {
 app.get('/fav.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'fav.html'));
 });
+app.get('/recipie.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'recipie.html'));
+});
+app.get('/joke.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'joke.html'));
+});
+app.get('/BG.png', (req, res) => {
+  res.sendFile(path.join(__dirname, 'BG.png'));
+});
+app.get('/fonts/CuteEasterPersonalUse-Wy8nV.ttf', (req, res) => {
+  res.sendFile(path.join(__dirname, 'fonts/CuteEasterPersonalUse-Wy8nV.ttf'));
+});
 
 // Catch-all route to serve index.html
 app.get('*', (req, res) => {
