@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const path = require('path');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +17,7 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/image', express.static('image'));
 
 mongoose.connect('mongodb://localhost:27017/flavourrhythm')
   .then(() => console.log('Connected to MongoDB'))
@@ -99,6 +99,10 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+app.get('/front.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'front.html'));
+});
 app.get('/trial.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'trial.html'));
 });
@@ -113,6 +117,7 @@ app.get('/fav.html', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 
 // Start server
 app.listen(PORT, () => {
