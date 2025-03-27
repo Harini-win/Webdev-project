@@ -17,6 +17,23 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             padding: 20px;
         }
+        .food-emoji {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall 1s linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -62,7 +79,7 @@
             }
             isLoginForm = !isLoginForm;
         }
-
+  
         document.getElementById('authForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -117,6 +134,33 @@
                 }
             }
         });
+        document.addEventListener("mousemove", (event) => {
+        for (let i = 0; i < 3; i++) { // Adjust number of emojis per move
+            createFoodEmoji(event.clientX, event.clientY);
+        }
+    });
+    
+
+    function createFoodEmoji(x, y) {
+        const emojiList = ["🍕", "🍔", "🍣", "🍩", "🍉", "🍪", "🥑", "🍟", "🍎", "🌮"];
+        const foodEmoji = document.createElement("div");
+        foodEmoji.classList.add("food-emoji");
+        foodEmoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+
+        foodEmoji.style.left = `${x}px`;
+        foodEmoji.style.top = `${y}px`;
+
+        const randomX = (Math.random() - 0.5) * 100; // Random horizontal movement
+        const randomY = Math.random() * 100 + 50; // Random fall distance
+        foodEmoji.style.setProperty("--x", `${randomX}px`);
+        foodEmoji.style.setProperty("--y", `${randomY}px`);
+
+        document.body.appendChild(foodEmoji);
+
+        setTimeout(() => {
+            foodEmoji.remove(); // Remove emoji after animation
+        }, 1000);
+    }
     </script>
 </body>
 </html>
