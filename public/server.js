@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,7 +23,7 @@ mongoose.connect('mongodb://localhost:27017/flavourrhythm')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// User Schema
+
 const userSchema = new mongoose.Schema({
   email: { 
     type: String, 
@@ -42,30 +42,29 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// User Model
 const User = mongoose.model('User', userSchema);
 
-// Root API route - Test connection
+
 app.get('/api', (req, res) => {
   res.json({ message: 'API is working' });
 });
 
-// User Registration
+
 app.post('/api/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Check if user exists
+  
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
     
-    // Hash password
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     
-    // Create new user
+    
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
     
@@ -76,18 +75,18 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// User Login
+
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Find user
+   
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
     
-    // Compare passwords
+    
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });

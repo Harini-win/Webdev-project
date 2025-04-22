@@ -265,7 +265,7 @@
     </div>
 
     <script>
-        const apiKey = "9030cdcbe64241eea03d82bb20c19fc7"; // Replace with your Spoonacular API key
+        const apiKey = "9030cdcbe64241eea03d82bb20c19fc7"; 
         const CACHE_KEY = 'dailyRecipe';
         const DATE_KEY = 'recipeDate';
 
@@ -317,7 +317,7 @@
             document.getElementById("loadingIndicator").style.display = "none";
             document.getElementById("recipeContent").style.display = "block";
             
-            // Basic info
+            
             document.getElementById("recipeTitle").textContent = recipe.title;
             document.getElementById("recipeDescription").innerHTML = recipe.summary;
             if (recipe.image) {
@@ -325,7 +325,7 @@
                 document.getElementById("recipeImage").alt = recipe.title;
             }
 
-            // Meta information
+           
             const readyInMinutes = recipe.readyInMinutes || 0;
             const prepTime = recipe.preparationMinutes || Math.floor(readyInMinutes / 2);
             const cookTime = recipe.cookingMinutes || (readyInMinutes - prepTime);
@@ -334,7 +334,7 @@
             document.getElementById("cookTime").textContent = `🍳 Cook: ${cookTime || '--'} min`;
             document.getElementById("servings").textContent = `👥 Serves: ${recipe.servings || '--'}`;
 
-            // Ingredients
+            
             const ingredientsContainer = document.getElementById("ingredientsList");
             ingredientsContainer.innerHTML = '';
 
@@ -342,30 +342,30 @@
 
             if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
             recipe.extendedIngredients.forEach(ingredient => {
-            // Create grid item instead of list item
+           
             const gridItem = document.createElement('div');
             gridItem.className = 'ingredient-grid-item';
         
-        // Create and add the ingredient image
+       
         const imgContainer = document.createElement('div');
         imgContainer.className = 'ingredient-img-container';
         
         const img = document.createElement('img');
-        // Format the ingredient name for the URL (lowercase, spaces replaced with hyphens)
+    
         const formattedName = ingredient.name.toLowerCase().replace(/\s+/g, '-');
         img.src = `https://spoonacular.com/cdn/ingredients_100x100/${formattedName}.jpg`;
         img.alt = ingredient.name;
         img.className = 'ingredient-img';
-        // Add error handling for images that fail to load
+        
         img.onerror = function() {
-            this.src = 'path/to/fallback-image.jpg'; // Add a fallback image path
-            this.onerror = null; // Prevent infinite loops if fallback also fails
+            this.src = 'path/to/fallback-image.jpg'; 
+            this.onerror = null; 
         };
         
         imgContainer.appendChild(img);
         gridItem.appendChild(imgContainer);
         
-        // Create and add the ingredient text
+        
         const textDiv = document.createElement('div');
         textDiv.textContent = `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`;
         textDiv.className = 'ingredient-text';
@@ -375,14 +375,14 @@
     });
 } else {
     ingredientsContainer.innerHTML = '<div class="no-ingredients">No ingredients information available</div>';
-}          // Instructions
+}          
             const instructionsList = document.getElementById("instructionsList");
             instructionsList.innerHTML = '';
 
             if (recipe.analyzedInstructions && recipe.analyzedInstructions[0]) {
                 recipe.analyzedInstructions[0].steps
-                .map(step => cleanStep(step.step)) // Clean each step
-                .filter(step => step.length > 10) // Remove short or irrelevant steps
+                .map(step => cleanStep(step.step)) 
+                .filter(step => step.length > 10) 
                 .forEach(cleanedStep => {
                 const li = document.createElement('li');
                 li.textContent = cleanedStep;
@@ -394,7 +394,7 @@
 
 
             function cleanStep(stepText) {
-                    return stepText.replace(/P:S.*$/i, '').trim(); // Removes "P:S ..." and trims spaces
+                    return stepText.replace(/P:S.*$/i, '').trim(); 
             }
 
             document.getElementById("nextUpdate").textContent = getTimeUntilTomorrow();

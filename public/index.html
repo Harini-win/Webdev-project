@@ -126,7 +126,6 @@
                 if (response.ok) {
                     localStorage.setItem('userId', data.userId);
                     window.location.href = 'front.html';
-                     // Redirect to trial.html after login
                 } else {
                     message.textContent = data.message || 'Invalid credentials';
                     message.classList.add('text-red-500');
@@ -135,7 +134,7 @@
             }
         });
         document.addEventListener("mousemove", (event) => {
-        for (let i = 0; i < 3; i++) { // Adjust number of emojis per move
+        for (let i = 0; i < 3; i++) { 
             createFoodEmoji(event.clientX, event.clientY);
         }
     });
@@ -150,15 +149,15 @@
         foodEmoji.style.left = `${x}px`;
         foodEmoji.style.top = `${y}px`;
 
-        const randomX = (Math.random() - 0.5) * 100; // Random horizontal movement
-        const randomY = Math.random() * 100 + 50; // Random fall distance
+        const randomX = (Math.random() - 0.5) * 100; 
+        const randomY = Math.random() * 100 + 50; 
         foodEmoji.style.setProperty("--x", `${randomX}px`);
         foodEmoji.style.setProperty("--y", `${randomY}px`);
 
         document.body.appendChild(foodEmoji);
 
         setTimeout(() => {
-            foodEmoji.remove(); // Remove emoji after animation
+            foodEmoji.remove(); 
         }, 1000);
     }
     </script>

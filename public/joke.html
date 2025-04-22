@@ -133,7 +133,7 @@
     </div>
 
     <script>
-        const apiKey = '9030cdcbe64241eea03d82bb20c19fc7'; // Replace with your Spoonacular API key
+        const apiKey = '9030cdcbe64241eea03d82bb20c19fc7'; 
         const CACHE_KEY = 'dailyJoke';
         const DATE_KEY = 'jokeDate';
         
@@ -186,14 +186,14 @@
                 
                 displayJoke(joke);
                 
-                // Update the countdown every minute
+                
                 setInterval(() => {
                     document.getElementById('nextUpdate').textContent = getTimeUntilTomorrow();
                     
-                    // Check if we need to load a new joke (if it's a new day)
+                
                     const currentDate = new Date().toDateString();
                     if (currentDate !== today) {
-                        window.location.reload(); // Reload the page to get a new joke
+                        window.location.reload(); 
                     }
                 }, 60000);
             } catch (error) {

@@ -71,15 +71,15 @@
         foodEmoji.style.left = `${x}px`;
         foodEmoji.style.top = `${y}px`;
 
-        const randomX = (Math.random() - 0.5) * 100; // Random horizontal movement
-        const randomY = Math.random() * 100 + 50; // Random fall distance
+        const randomX = (Math.random() - 0.5) * 100; 
+        const randomY = Math.random() * 100 + 50; 
         foodEmoji.style.setProperty("--x", `${randomX}px`);
         foodEmoji.style.setProperty("--y", `${randomY}px`);
 
         document.body.appendChild(foodEmoji);
 
         setTimeout(() => {
-            foodEmoji.remove(); // Remove emoji after animation
+            foodEmoji.remove(); 
         }, 1000);
     }
     document.addEventListener("DOMContentLoaded", function () {
@@ -87,7 +87,7 @@
     const savedRecipes = JSON.parse(localStorage.getItem("favourites")) || [];
 
     if (savedRecipes.length > 0) {
-        favouritesContainer.innerHTML = ""; // Clear previous content
+        favouritesContainer.innerHTML = ""; 
 
         savedRecipes.forEach((recipe, index) => {
             const recipeCard = document.createElement("div");
