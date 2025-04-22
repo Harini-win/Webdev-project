@@ -19,9 +19,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/image', express.static('image'));
 
-mongoose.connect('mongodb://localhost:27017/flavourrhythm')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const uri = 'mongodb+srv://vercel-admin-user:Harini@cluster0.mongodb.net/flavourrhythm?retryWrites=true&w=majority';
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connected to MongoDB Atlas'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 
 const userSchema = new mongoose.Schema({
